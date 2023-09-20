@@ -1,18 +1,5 @@
 <template>
-          <ul class="list-group list position-relative d-flex flex-row justify-content-center align-items-center text-center ms-5">
-            <li class="list-item li-o me-4 px-4 py-3 rounded">
-              Concerts
-            </li>
-            <li class="list-item li-t mb-5 me-4 px-4 py-3 rounded">
-              Conventions
-            </li>
-            <li class="list-item li-th me-4 px-4 py-3 rounded">
-              Sports
-            </li>
-            <li class="list-item li-f mb-5 px-4 py-3 rounded">
-              Digital
-            </li>
-          </ul>
+<div></div>
 </template>
 
 <script>

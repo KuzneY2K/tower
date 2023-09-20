@@ -2,8 +2,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-0 m-0 py-5 px-5 mt-4">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-row align-items-center justify-content-center">
-        <img alt="logo" src="https://i.imgur.com/Xj5cvHh.png" height="80" class="" />
-                      <a class="nav-brand nav-title p-0 m-0 fs-1 ms-2 text-dark" href="#">TOWER</a>
+        <img alt="logo" src="https://i.imgur.com/Xj5cvHh.png" height="60" class="" />
+                      <a class="nav-brand nav-title p-0 m-0 fs-2 ms-2 text-dark" href="#">TOWER</a>
       </div>
     </router-link>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"

@@ -7,10 +7,12 @@ export class EventsController extends BaseController {
         super('api/events')
         this.router
             .get('', this.getAllEvents)
+            .get('/:eventId', this.getEventById)
+            .get('/:eventId/tickets', this.getEventTickets)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createEvent)
             .put('/:eventId', this.editEvent)
-            .delete('/:eventId', this.deleteEvent)
+            .delete('/:eventId', this.cancelEvent)
     }
 
     // GET ALL EVENTS
@@ -23,13 +25,22 @@ export class EventsController extends BaseController {
         }
     }
 
+    async getEventById(req, res, next) {
+        try {
+            let eventId = req.params.eventId
+            const event = await eventsService.getEventById(eventId)
+            res.send(event)
+        } catch (error) {
+            next(error)
+        }
+    }
+
     // CREATE EVENT
     async createEvent(req, res, next) {
         try {
             let eventBody = req.body
             eventBody.creatorId = req.userInfo.id
-            eventBody.creatorPicture = req.userInfo.picture
-            eventBody.creatorName = req.userInfo.nickname
+            // eventBody.creator = req.userInfo
             const newEvent = await eventsService.createEvent(eventBody)
             res.send(newEvent)
         } catch (error) {
@@ -48,11 +59,20 @@ export class EventsController extends BaseController {
         }
     }
 
-    async deleteEvent(req, res, next) {
+    async cancelEvent(req, res, next) {
         try {
             const eventId = req.params.eventId
-            let eventToDelete = await eventsService.deleteEvent(eventId)
-            res.send(eventToDelete)
+            let eventToCancel = await eventsService.cancelEvent(eventId, req.userInfo.id)
+            res.send(eventToCancel)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getEventTickets(req, res, next) {
+        try {
+            const tickets = await eventsService.getEventTickets(req.params.eventId)
+            res.send(tickets)
         } catch (error) {
             next(error)
         }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="event">
         <h2>{{event.name}}</h2>
     </div>
 </template>
@@ -26,7 +26,7 @@ import { logger } from '../utils/Logger.js';
             }
 
             onMounted(() => {
-                // getEventById()
+                getEventById()
             })
             return {
                 event: computed(() => AppState.activeEvent)

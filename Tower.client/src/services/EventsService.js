@@ -12,7 +12,6 @@ class EventsService{
     }
 
     async getEventById(eventId){
-        AppState.activeEvent = null
         let res = await api.get(`api/events/${eventId}`)
         AppState.activeEvent = new Event(res.data)
         logger.log(AppState.activeEvent)

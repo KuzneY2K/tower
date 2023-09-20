@@ -38,10 +38,11 @@ class EventsService {
     }
 
     // EDIT EVENT
-    async editEvent(updateBody, eventId) {
+    async editEvent(updateBody, eventId, userId) {
         try {
             const eventToEdit = await dbContext.Events.findById(eventId)
             if (eventToEdit.isCanceled == false) {
+                if (eventToEdit.creatorId != userId) throw new Forbidden('Uh uh uh, not your event to edit.')
                 eventToEdit.name = updateBody.name ? updateBody.name : eventToEdit.name
                 eventToEdit.description = updateBody.description ? updateBody.description : eventToEdit.description
                 eventToEdit.coverImg = updateBody.coverImg ? updateBody.coverImg : eventToEdit.coverImg
@@ -63,8 +64,8 @@ class EventsService {
     // DELETE EVENT
     async cancelEvent(eventId, userId) {
         const eventToCancel = await dbContext.Events.findById(eventId)
+        if (eventToCancel.creatorId != userId) throw new Forbidden("You can't do that! Not your event!")
         if (eventToCancel.isCanceled == false) {
-            if (eventToCancel.creatorId != userId) throw new Forbidden("You can't do that! Not your event!")
             eventToCancel.isCanceled = true
             await eventToCancel.save()
             return eventToCancel

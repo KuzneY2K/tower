@@ -5,18 +5,18 @@ export const CommentSchema = new Schema({
     eventId: { type: Schema.Types.ObjectId, ref: 'Event', required: true },
     body: { type: String, required: true, maxlength: 500, minlength: 1 },
     isAttending: { type: Boolean, }
-})
+}, { timestamps: true, toJSON: { virtuals: true } })
 
 CommentSchema.virtual('creator', {
     localField: 'creatorId',
-    foreignField: 'id',
+    foreignField: '_id',
     ref: 'Account',
     justOne: true
 })
 
 CommentSchema.virtual('event', {
     localField: 'eventId',
-    foreignField: 'id',
+    foreignField: '_id',
     ref: 'Event',
     justOne: true
 })

@@ -6,14 +6,14 @@ export const CommentSchema = new Schema({
     body: { type: String, required: true, maxlength: 100, minlength: 1 }
 })
 
-CommentSchema.virtual('creatorId', {
+CommentSchema.virtual('eventCreatorId', {
     localField: 'creatorId',
     foreignField: '_id',
     ref: 'Account',
     justOne: true
 })
 
-CommentSchema.virtual('eventId', {
+CommentSchema.virtual('eventEventId', {
     localField: 'eventId',
     foreignField: 'id',
     ref: 'Event',

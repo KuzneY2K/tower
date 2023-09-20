@@ -9,21 +9,21 @@ export const TicketSchema = new Schema({
     accountId: { type: Schema.Types.ObjectId, ref: 'Account', required: true }
 }, { timestamps: true, toJSON: { virtuals: true } })
 
-TicketSchema.virtual('eventId', {
+TicketSchema.virtual('eventEventId', {
     localField: 'eventId',
     foreignField: 'id',
     ref: 'Event',
     justOne: true
 })
 
-TicketSchema.virtual('eventName', {
+TicketSchema.virtual('eventEventName', {
     localField: 'eventName',
     foreignField: 'eventName',
     ref: 'Event',
     justOne: true
 })
 
-TicketSchema.virtual('accountId', {
+TicketSchema.virtual('eventAccountId', {
     localField: 'accountId',
     foreignField: '_id',
     ref: 'Account',

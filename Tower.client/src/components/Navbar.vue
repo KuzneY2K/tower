@@ -14,14 +14,9 @@
       <ul class="navbar-nav me-4">
         <li>
           <router-link :to="{ name: 'Home' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 me-4 border-white border elevation-5">
-              Home
+              Events
           </router-link>
         </li>
-                        <li>
-              <router-link :to="{ name: 'Home' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 me-4 border-white border elevation-5">
-                  Events
-              </router-link>
-            </li>
                 <li>
             <router-link :to="{ name: 'Account' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 me-4 border-white border elevation-5">
                 Account

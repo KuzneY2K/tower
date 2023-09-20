@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TicketsService {
     async createTicket(ticketBody) {
@@ -10,6 +11,17 @@ class TicketsService {
     async getMyTickets(accountId) {
         let myTickets = dbContext.Tickets.find({ accountId }).populate('event', 'name id _id')
         return myTickets
+    }
+    async deleteTicket(ticketId, userId) {
+        const ticketToDelete = await dbContext.Tickets.findById(ticketId).populate('profile event')
+        if (!ticketToDelete) {
+            throw new BadRequest('Come on, wrong ticket.')
+        }
+        if (ticketToDelete.accountId != userId) {
+            throw new Forbidden('Ay yo? Not your ticket...')
+        }
+        ticketToDelete.remove()
+        return `${ticketToDelete.eventId} <= removed`
     }
 
 }

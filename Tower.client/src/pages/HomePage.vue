@@ -2,19 +2,19 @@
   <section class="row p-0 m-0 main-row">
             <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-start">
             <ul class="list-group list position-relative d-flex flex-row flex-wrap justify-content-center align-items-center text-center ms-md-5">
-              <li class="list-item li-o me-md-4 me-3 px-4 py-3 rounded" @click="filter = 'concert'">
+              <li class="list-item li-o me-md-4 me-3 px-4 py-3 rounded fs-5" @click="filter = 'concert'">
                 Concerts
               </li>
-              <li class="list-item li-t mb-md-5 me-md-4 px-4 py-3 rounded" @click="filter = 'convention'">
+              <li class="list-item li-t mb-md-5 me-md-4 px-4 py-3 rounded fs-5" @click="filter = 'convention'">
                 Conventions
               </li>
-              <li class="list-item li-th me-md-4 mt-3 me-3 px-4 py-3 rounded" @click="filter = 'sport'">
+              <li class="list-item li-th me-md-4 mt-3 me-3 px-4 py-3 rounded fs-5" @click="filter = 'sport'">
                 Sports
               </li>
-              <li class="list-item li-f mb-md-5 me-md-4 mt-3 px-4 py-3 rounded" @click="filter = 'digital'">
+              <li class="list-item li-f mb-md-5 me-md-4 mt-3 px-4 py-3 rounded fs-5" @click="filter = 'digital'">
                 Digital
               </li>
-              <li class="list-item li-z me-md-4 mt-5 me-3 px-4 py-3 rounded" @click="filter = ''">
+              <li class="list-item li-z me-md-4 mt-5 me-3 px-4 py-3 rounded fs-5" @click="filter = ''">
                    All
                  </li>
             </ul>

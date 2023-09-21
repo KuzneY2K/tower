@@ -14,7 +14,7 @@ class EventsService{
     async getEventById(eventId){
         let res = await api.get(`api/events/${eventId}`)
         AppState.activeEvent = new Event(res.data)
-        logger.log(AppState.activeEvent)
+        // logger.log(AppState.activeEvent)
     }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-0 m-0 py-5 px-5 mt-4">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent p-0 m-0 py-3 px-3 py-md-5 px-md-5 mt-4">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-row align-items-center justify-content-center">
         <img alt="logo" src="https://i.imgur.com/Xj5cvHh.png" height="60" class="" />
@@ -55,6 +55,10 @@ a:hover {
 
 .nav-btn {
   width: 8rem;
+}
+
+.navbar-toggler{
+  border: 1px solid black;
 }
 
 

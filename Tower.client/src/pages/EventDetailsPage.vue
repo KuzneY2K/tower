@@ -80,6 +80,11 @@ import {commentsService} from '../services/CommentsService.js'
 .coverImgContainer{
     transform:translate(3rem, 0rem);
 }
+
+.commentContainer::-webkit-scrollbar {
+    display: none;
+}
+
 .coverImg{
     height: 25rem;
         transform:translate(2rem, 2rem);

@@ -26,6 +26,11 @@ class TicketsService {
         AppState.eventTickets = filteredTickets
     }
 
+    async getAccountTickets(){
+        const res = await api.get('account/tickets')
+        AppState.myTickets = res.data.map(ticket => new Ticket(ticket))
+    }
+
 }
 
 export const ticketsService = new TicketsService()

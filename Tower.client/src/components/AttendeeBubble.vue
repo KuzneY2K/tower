@@ -11,10 +11,13 @@ import { Ticket } from '../models/Ticket.js';
 import { ticketsService } from '../services/TicketsService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
+import { useRouter } from 'vue-router';
     export default {
     props: { ticket: { type: Ticket, required: true } },
         setup(props){
 
+
+            let router = useRouter()
             // function logTicket(){
             //     logger.log(props.ticket)
             // }
@@ -30,6 +33,7 @@ import Pop from '../utils/Pop.js';
                         if(props.ticket.accountId == AppState.account.id){
                             if(await Pop.confirm('Unattend this event?')){
                                 await ticketsService.deleteTicket(ticketId)
+                                router.push({ name: 'Home', path: '/' })
                                 Pop.toast('Event Unattended.')
                             } else {
                                 Pop.toast('Ticket deletion cancelled.')

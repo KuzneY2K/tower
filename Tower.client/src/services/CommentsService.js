@@ -5,7 +5,7 @@ import { api } from "./AxiosService.js"
 
 class CommentsService {
     async getEventComments(eventId){
-        logger.log('GETTING COMMENTS')
+        // logger.log('GETTING COMMENTS')
         AppState.eventComments = null
         const res = await api.get(`api/events/${eventId}/comments`)
         // logger.log(res.data)

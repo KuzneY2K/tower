@@ -3,14 +3,19 @@
         <!-- MODAL -->
         <!-- Button trigger modal -->
         <div class="btn-container p-0 m-0 position-absolute">
-    <button v-if="account.id" type="button" class="btn comment-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" data-bs-toggle="modal" data-bs-target="#commentModal">
+    <button v-if="account.id" type="button" class="btn comment-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" data-bs-toggle="modal" data-bs-target="#commentModal" title="Comment">
       <i class="mdi mdi-pencil-plus fs-2"></i>
     </button></div>
-    <div class="btn-container p-0 m-0 position-absolute">
+    <div class="btn-container p-0 m-0 position-absolute" v-if="capacity - ticketCount > 0">
         <div class="tixcontainer p-0 m-0" v-if="tickets">
-        <button v-if="account.id && !hasTicket" type="button" class="btn attend-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" @click.prevent="createTicket()">
+        <button v-if="account.id && !hasTicket" type="button" class="btn attend-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" @click.prevent="createTicket()" title="Attend Event">
           <i class="mdi mdi-ticket fs-2"></i>
         </button></div></div>
+            <div class="btn-container p-0 m-0 position-absolute">
+            <div class="delcontainer p-0 m-0" v-if="event.creatorId == account.id">
+            <button type="button" class="btn del-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" @click.prevent="cancelEvent()" title="Cancel Event">
+              <i class="mdi mdi-close-thick fs-2"></i>
+            </button></div></div>
 
     <!-- Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
@@ -50,7 +55,7 @@
             <h5 class="p-0 m-0 me-md-5 mt-0 my-3">Event created by: {{event.creator.name}}</h5>
             <h5 class="mt-md-5 me-md-5 p-0 m-0 w-100 my-3 desc">{{ event.description }}</h5>
             <hr>
-            <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3" :key="event.ticketCount">Tickets left: {{capacity - event.ticketCount}}</h4>
+            <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3" :key="event.ticketCount">Tickets left: {{capacity - ticketCount}}</h4>
             <h3 class="mt-md-2 ms-md-5">STARTING at {{ event.startDate }}</h3>
             <div class="col-12 p-0 m-0 d-flex flex-row justify-content-center attendeeContainer mt-md-3">
             <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket" />
@@ -76,7 +81,7 @@
 </template>
 
 <script>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import {eventsService} from '../services/EventsService.js'
 import { computed, onMounted, ref, } from 'vue';
@@ -89,6 +94,7 @@ import { Modal } from 'bootstrap';
     export default {
         setup(){
             const route = useRoute()
+            const router = useRouter()
 
             let reqBody = ref({})
             let ticketBody = ref({})
@@ -96,7 +102,7 @@ import { Modal } from 'bootstrap';
             async function getEventById(){
                 try {
                     await eventsService.getEventById(route.params.eventId)
-                    logger.log(AppState.activeEvent)
+                    // logger.log(AppState.activeEvent)
                 } catch (error) {
                     Pop.error(error)
                 }
@@ -131,11 +137,25 @@ import { Modal } from 'bootstrap';
                 tickets: computed(() => AppState.eventTickets),
                 account: computed(() => AppState.account),
                 capacity: computed(() => AppState.activeEvent.capacity),
+                ticketCount: computed(() => AppState.activeEvent.ticketCount),
                 hasTicket: computed(() => AppState.eventTickets.find(ticket => ticket.accountId == AppState.account.id)),
                 getEventComments,
                 getEventTickets,
                 reqBody,
                 ticketBody,
+
+                // cancel event
+                async cancelEvent(){
+                    try {
+                        if(await Pop.confirm('Are you sure you want to cancel this event?')){
+                            await eventsService.cancelEvent(route.params.eventId)
+                            router.push({ name: 'Home', path: '/' })
+                            Pop.toast('Event Cancelled.')
+                        }
+                    } catch (error) {
+                        Pop.error(error)
+                    }
+                },
 
                 // delete comment
                 async deleteComment(commentId){
@@ -196,7 +216,12 @@ import { Modal } from 'bootstrap';
 
 .attend-btn{
     bottom: 2rem;
-    right: 8rem;
+    right: 7.5rem;
+}
+
+.del-btn{
+    bottom: 6.5rem;
+    right: 2rem;
 }
 
 .deleteBtn{

@@ -3,8 +3,8 @@
           <div class="card-container event-card p-0 m-0 d-flex flex-column flex-wrap mt-3 flex-md-row jusity-content-center px-2 elevation-5 border border-2 border-dark " @click.stop="e => e.target.classList.toggle('active')" :style="{ backgroundImage: 'url(' + props.event.coverImg + ')'}">
 
             <div class="title-container p-0 m-0 click-thru text-white pattern-dots-lg gray-light pb-4 px-4">
-              <h2 v-if="props.event.isCanceled == false" class="text-white mt-4 event-title ">{{ props.event.name }}</h2>
-              <h2 v-if="props.event.isCanceled == true" class="text-white mt-4 text-danger event-title"><del>{{ props.event.name }}</del> <br>// Cancelled</h2>
+              <h2 v-if="props.event.isCanceled == false" class="text-white mt-4 event-title ">{{ props.event.name.toUpperCase() }} <br> <span class="fs-5">{{ props.event.location.toUpperCase() }}</span></h2>
+              <h2 v-if="props.event.isCanceled == true" class="text-white mt-4 text-danger event-title"><del>{{ props.event.name.toUpperCase() }}</del> <br>// Cancelled</h2>
             </div>
             
             <p class="mx-5 my-5 text-white event-desc mt-3 positon-absolute click-thru " >{{ props.event.description }}</p>
@@ -12,7 +12,7 @@
           <router-link :to="{name: 'Event Details', params: {eventId: props.event.id}}" v-if="props.event.isCanceled == false" class="pattern-dots-lg gray-light text-white">
             <button class="btn btn-light mt-3 ms-3" v-if="props.event.isCanceled == false">See Event Details</button>
           </router-link>
-          <div class="div p-0 m-0 pattern-dots-lg gray-light text-white">
+          <div class="div p-0 m-0 text-white">
           <button class="btn btn-light mt-3 ms-3" v-if="props.event.isCanceled == true" disabled>See Event Details</button>
           </div>
         </div>

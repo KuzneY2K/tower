@@ -7,7 +7,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLevel" aria-hidden="true">
+    <div class="modal fade hideModal" id="eventModal" tabindex="-1" aria-labelledby="eventModalLevel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -96,8 +96,10 @@ import { Modal } from 'bootstrap';
                     try {
                         let newEvent = await eventsService.createEvent(eventBody.value)
                         eventBody.value = {}
-                        // Modal.getOrCreateInstance('#eventModal').hide() ADD CLASS HIDDEN TO MODAL TO HIDE IT
+                        Modal.getOrCreateInstance('#eventModal').hide()
+                        // document.getElementById('eventModal').classList.add('active')
                         router.push({ name: 'Event Details', params: { eventId: newEvent } })
+                        window.scrollTo(0, 0)
                     } catch (error) {
                         Pop.error(error)
                     }
@@ -111,6 +113,10 @@ import { Modal } from 'bootstrap';
 
 .createBtnContainer{
     z-index: 5;
+}
+
+.hideModal.active{
+    visibility: hidden;
 }
 
 .createBtn{

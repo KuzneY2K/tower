@@ -24,6 +24,7 @@
             </div>
   </section>
   <section class="row p-0 m-0 mb-5">
+    <h3 class="p-0 m-0 ms-4">Sorted by: Newest Events</h3>
     <EventCard :event="event" v-for="event in events" :key="event" />
   </section>
 </template>
@@ -54,7 +55,7 @@ export default {
       account: computed(() => AppState.account),
       events: computed(() => {
         if(!filter.value){
-          return AppState.events
+          return AppState.events.reverse()
         } else {
           return AppState.events.filter(e => e.type == filter.value)
         }

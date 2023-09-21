@@ -47,6 +47,7 @@
                 <h2 class="p-0 m-0 me-md-5 mt-md-5 my-3">{{event.name}}</h2>
             </div>
             <h3 class="p-0 m-0 me-md-5 mt-0 my-3">{{event.location}}</h3>
+            <h5 class="p-0 m-0 me-md-5 mt-0 my-3">Event created by: {{event.creator.name}}</h5>
             <h5 class="mt-md-5 me-md-5 p-0 m-0 w-100 my-3 desc">{{ event.description }}</h5>
             <hr>
             <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3" :key="event.ticketCount">Tickets left: {{capacity - event.ticketCount}}</h4>
@@ -59,7 +60,7 @@
 </section>
 <section class="row p-0 m-0 comments mb-5 mt-4" v-for="comment in comments" :key="comment">
     <div class="col-md-6 col-10 p-0 m-0 d-flex flex-column align-items-start align-items-md-start ms-md-5 mx-auto position-relative" v-if="event && !event.isCanceled">
-        <button class="btn btn-secondary rounded position-absolute deleteBtn" @click.prevent="deleteComment(comment.id)">X</button>
+        <button class="btn btn-secondary rounded position-absolute deleteBtn" @click.prevent="deleteComment(comment.id)" v-if="comment.creator.id == account.id">X</button>
         <div class="div p-0 m-0 commentContainer border border-2 border-black p-4 w-100 rounded">
             <div class="div comment-head p-0 m-0 d-flex flex-row align-items-center">
                 <img :src="comment.creator.picture" alt="" class="rounded rounded-pill" height="60">
@@ -83,6 +84,7 @@ import { AppState } from '../AppState.js';
 import {commentsService} from '../services/CommentsService.js'
 import { logger } from '../utils/Logger.js';
 import {ticketsService} from '../services/TicketsService.js'
+import { Modal } from 'bootstrap';
 
     export default {
         setup(){
@@ -138,7 +140,12 @@ import {ticketsService} from '../services/TicketsService.js'
                 // delete comment
                 async deleteComment(commentId){
                     try {
-                            await commentsService.deleteComment(commentId)
+                        if(await Pop.confirm('Delete Comment?')){
+                            await commentsService.deleteComment(commentId) 
+                            Pop.toast('Comment Removed.')              
+                        } else {
+                            Pop.toast('Deletion cancelled.')
+                        }
                     } catch (error) {
                         Pop.error(error)
                     }
@@ -149,6 +156,7 @@ import {ticketsService} from '../services/TicketsService.js'
                         reqBody.value.eventId = route.params.eventId
                         reqBody.value.event = this.event
                         await commentsService.createComment(reqBody.value)
+                        Modal.getOrCreateInstance('#commentModal').hide()
                         reqBody.value = {}
                     } catch (error) {
                         Pop.error(error)

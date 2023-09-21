@@ -30,6 +30,7 @@ import Pop from '../utils/Pop.js';
                         if(props.ticket.accountId == AppState.account.id){
                             if(await Pop.confirm('Unattend this event?')){
                                 await ticketsService.deleteTicket(ticketId)
+                                Pop.toast('Event Unattended.')
                             } else {
                                 Pop.toast('Ticket deletion cancelled.')
                             }

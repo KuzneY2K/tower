@@ -46,15 +46,15 @@ import {Event} from '../models/Event.js'
 .event-card{
   width: 100%;
   height: 15rem;
-  overflow: scroll !important;
+  overflow: hidden !important;
   transform: rotateY(0deg);
   transition: transform ease-in-out .2s;
-
+  
   >.title-container{
-  visibility: visible;
+    visibility: visible;
     position: absolute;
-}
-
+  }
+  
   >p{
     opacity: 0%;
     transform: rotateY(0deg);
@@ -64,12 +64,13 @@ import {Event} from '../models/Event.js'
 }
 
 .event-card.active {
-transform: rotateY(180deg);
-
->.title-container{
-  visibility: hidden;
-  position: absolute;
-}
+  transform: rotateY(180deg);
+    overflow: scroll !important;
+  
+  >.title-container{
+    visibility: hidden;
+    position: absolute;
+  }
   >p{
     opacity: 100%;
       transform: rotateY(180deg);

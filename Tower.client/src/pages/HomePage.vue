@@ -21,7 +21,7 @@
             </div>
   </section>
   <section class="row p-0 m-0 mb-5">
-    <EventCard :event="event" v-for="event in events" :key="event.id" />
+    <EventCard :event="event" v-for="event in events" :key="event" />
   </section>
 </template>
 

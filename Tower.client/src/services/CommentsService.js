@@ -9,11 +9,20 @@ class CommentsService {
         AppState.eventComments = null
         const res = await api.get(`api/events/${eventId}/comments`)
         AppState.eventComments = res.data.map(comment => new Comment(comment))
-        logger.log(AppState.eventComments)
+        // logger.log(AppState.eventComments)
     }
 
     async deleteComment(commentId){
-        logger.log(`Deleting ${commentId}`)
+        const res = await api.delete(`api/comments/${commentId}`)
+        // logger.log(res)
+        let filteredComments = AppState.eventComments.filter(comment => comment.id != commentId)
+        AppState.eventComments = filteredComments
+    }
+
+    async createComment(eventId, comment){
+        const res = await api.post(`api/events/${eventId}/comments`, comment)
+        let newComment = new Comment(res.data)
+        logger.log(newComment)
     }
 }
 

@@ -9,7 +9,7 @@ class TicketsService {
         return newTicket
     }
     async getMyTickets(accountId) {
-        let myTickets = dbContext.Tickets.find({ accountId }).populate('event profile', 'name id _id picture coverImg location description')
+        let myTickets = dbContext.Tickets.find({ accountId }).populate('event profile', 'name id _id picture coverImg location description isCanceled')
         return myTickets
     }
     async deleteTicket(ticketId, userId) {

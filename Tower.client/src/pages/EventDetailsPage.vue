@@ -18,9 +18,11 @@
 <section class="row p-0 m-0 comments mb-5 mt-5" v-for="comment in comments" :key="comment.id">
     <div class="col-md-6 col-10 p-0 m-0 d-flex flex-column align-items-start align-items-md-start ms-md-5 mx-auto">
         <div class="div p-0 m-0 commentContainer border border-2 border-black p-4 w-100">
-            <div class="div comment-head p-0 m-0 d-flex flex-row justify-content- align-items-center">
+            <div class="div comment-head p-0 m-0 d-flex flex-row align-items-center position-relative">
+                <button class="btn btn-secondary rounded position-absolute deleteBtn" @click.prevent="deleteComment(comment.id)">X</button>
                 <img :src="comment.creator.picture" alt="" class="rounded rounded-pill" height="60">
             <h5 class="p-0 m-0 ms-4">{{ comment.creator.name }} says...</h5>
+            <p>{{comment.creator.id}}</p>
             </div>
         <p class="p-0 m-0 mt-4 fs-5"><i class="mdi mdi-format-quote-open"></i>{{comment.body}}<i class="mdi mdi-format-quote-close"></i></p>
         </div>
@@ -32,7 +34,7 @@
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import {eventsService} from '../services/EventsService.js'
-import { computed, onMounted, popScopeId } from 'vue';
+import { computed, onMounted, } from 'vue';
 import { AppState } from '../AppState.js';
 import { logger } from '../utils/Logger.js';
 import {commentsService} from '../services/CommentsService.js'
@@ -69,11 +71,7 @@ import {commentsService} from '../services/CommentsService.js'
                 // delete comment
                 async deleteComment(commentId){
                     try {
-                        if(Pop.confirm('Delete comment?')){
                             await commentsService.deleteComment(commentId)
-                        } else {
-                            Pop.toast('Deletion cancelled.')
-                        }
                     } catch (error) {
                         Pop.error(error)
                     }
@@ -84,6 +82,11 @@ import {commentsService} from '../services/CommentsService.js'
 </script>
 
 <style lang="scss" scoped>
+
+.deleteBtn{
+    right: -0.8rem;
+    top: -1rem;
+}
 
 .commentContainer{
     height: 12rem;

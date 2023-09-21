@@ -96,7 +96,7 @@ import { Modal } from 'bootstrap';
                     try {
                         let newEvent = await eventsService.createEvent(eventBody.value)
                         eventBody.value = {}
-                        // Modal.getOrCreateInstance('#eventModal').hide() ADD CLASS HIDDEN TO MODAL TO HIDE FINISHING UP / Final Functionally 
+                        // Modal.getOrCreateInstance('#eventModal').hide() ADD CLASS HIDDEN TO MODAL TO HIDE  
                         router.push({ name: 'Event Details', params: { eventId: newEvent } })
                     } catch (error) {
                         Pop.error(error)

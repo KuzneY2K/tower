@@ -22,7 +22,7 @@
                 <img :src="comment.creator.picture" alt="" class="rounded rounded-pill" height="60">
             <h5 class="p-0 m-0 ms-4">{{ comment.creator.name }} says...</h5>
             </div>
-        <p class="p-0 m-0 mt-4">{{comment.body}}</p>
+        <p class="p-0 m-0 mt-4 fs-5"><i class="mdi mdi-format-quote-open"></i>{{comment.body}}<i class="mdi mdi-format-quote-close"></i></p>
         </div>
     </div>
 </section>
@@ -71,6 +71,11 @@ import {commentsService} from '../services/CommentsService.js'
 </script>
 
 <style lang="scss" scoped>
+
+.commentContainer{
+    height: 12rem;
+    overflow: scroll;
+}
 
 .coverImgContainer{
     transform:translate(3rem, 0rem);

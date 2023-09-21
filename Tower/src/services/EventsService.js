@@ -5,7 +5,7 @@ import { logger } from "../utils/Logger.js";
 class EventsService {
     async getEventTickets(eventId) {
         // let event = await dbContext.Events.findById(eventId)
-        const tickets = await dbContext.Tickets.find({ eventId: eventId }).populate('profile', 'name')
+        const tickets = await dbContext.Tickets.find({ eventId: eventId }).populate('profile event', 'name picture id _id')
         return tickets
     }
 

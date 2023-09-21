@@ -1,11 +1,16 @@
 <template>
-    <section class="row p-0 m-0 d-flex flex-column flex-md-row align-items-md-start align-items-center container-fluid position-relative" v-if="event">
+    <section class="row p-0 m-0 d-flex flex-column flex-md-row align-items-md-start align-items-center container-fluid position-relative" v-if="event && !event.isCanceled">
         <!-- MODAL -->
         <!-- Button trigger modal -->
         <div class="btn-container p-0 m-0 position-absolute">
-    <button type="button" class="btn comment-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" data-bs-toggle="modal" data-bs-target="#commentModal">
+    <button v-if="account.id" type="button" class="btn comment-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" data-bs-toggle="modal" data-bs-target="#commentModal">
       <i class="mdi mdi-pencil-plus fs-2"></i>
     </button></div>
+    <div class="btn-container p-0 m-0 position-absolute">
+        <div class="tixcontainer p-0 m-0" v-if="tickets">
+        <button v-if="account.id && !hasTicket" type="button" class="btn attend-btn btn-grad p-0 m-0 px-4 py-2 border border-1 border-white elevation-5 position-fixed" @click.prevent="createTicket()">
+          <i class="mdi mdi-ticket fs-2"></i>
+        </button></div></div>
 
     <!-- Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
@@ -25,7 +30,7 @@
                         maxlength="250">
                 </div>
                 <!-- SUBMIT FORM -->
-                <button type="submit" class="btn btn-grad px-4 py-2 border border-1 border-dark elevation-5">Submit</button>
+                <button type="submit" class="btn btn-grad px-4 py-2 border border-1 border-white elevation-5">Submit</button>
             </form>
           </div>
         </div>
@@ -44,21 +49,24 @@
             <h3 class="p-0 m-0 me-md-5 mt-0 my-3">{{event.location}}</h3>
             <h5 class="mt-md-5 me-md-5 p-0 m-0 w-100 my-3 desc">{{ event.description }}</h5>
             <hr>
-            <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3">Tickets left: {{event.capacity}}</h4>
+            <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3" :key="event.ticketCount">Tickets left: {{capacity - event.ticketCount}}</h4>
             <h3 class="mt-md-2 ms-md-5">STARTING at {{ event.startDate }}</h3>
             <div class="col-12 p-0 m-0 d-flex flex-row justify-content-center attendeeContainer mt-md-3">
-            <AttendeeBubble v-for="comment in comments" :key="comment" :comment="comment" />
+            <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket" />
         </div>
             <hr>
     </div>
 </section>
 <section class="row p-0 m-0 comments mb-5 mt-4" v-for="comment in comments" :key="comment">
-    <div class="col-md-6 col-10 p-0 m-0 d-flex flex-column align-items-start align-items-md-start ms-md-5 mx-auto position-relative">
+    <div class="col-md-6 col-10 p-0 m-0 d-flex flex-column align-items-start align-items-md-start ms-md-5 mx-auto position-relative" v-if="event && !event.isCanceled">
         <button class="btn btn-secondary rounded position-absolute deleteBtn" @click.prevent="deleteComment(comment.id)">X</button>
         <div class="div p-0 m-0 commentContainer border border-2 border-black p-4 w-100 rounded">
             <div class="div comment-head p-0 m-0 d-flex flex-row align-items-center">
                 <img :src="comment.creator.picture" alt="" class="rounded rounded-pill" height="60">
+                <div class="div comment-head-info">
             <h5 class="p-0 m-0 ms-4">{{ comment.creator.name }} says...</h5>
+            <span class="p-0 m-0 ms-4 mt-1">{{ comment.createdAt }}</span>
+            </div>
             </div>
         <p class="p-0 m-0 mt-4 fs-5"><i class="mdi mdi-format-quote-open"></i>{{comment.body}}<i class="mdi mdi-format-quote-close"></i></p>
         </div>
@@ -74,17 +82,19 @@ import { computed, onMounted, ref, } from 'vue';
 import { AppState } from '../AppState.js';
 import {commentsService} from '../services/CommentsService.js'
 import { logger } from '../utils/Logger.js';
+import {ticketsService} from '../services/TicketsService.js'
 
     export default {
         setup(){
             const route = useRoute()
 
             let reqBody = ref({})
+            let ticketBody = ref({})
 
             async function getEventById(){
                 try {
                     await eventsService.getEventById(route.params.eventId)
-                    // logger.log(AppState.activeEvent)
+                    logger.log(AppState.activeEvent)
                 } catch (error) {
                     Pop.error(error)
                 }
@@ -98,15 +108,32 @@ import { logger } from '../utils/Logger.js';
                 }
             }
 
+            async function getEventTickets(){
+                try {
+                    await ticketsService.getEventTickets(route.params.eventId)
+                } catch (error) {
+                    Pop.error(error)
+                }
+            }
+
             onMounted(() => {
                 getEventById()
                 getEventComments()
+                getEventTickets()
             })
+
+            // if event is cancelled disable ticket creation
             return {
                 event: computed(() => AppState.activeEvent),
                 comments: computed(() => AppState.eventComments),
+                tickets: computed(() => AppState.eventTickets),
+                account: computed(() => AppState.account),
+                capacity: computed(() => AppState.activeEvent.capacity),
+                hasTicket: computed(() => AppState.eventTickets.find(ticket => ticket.accountId == AppState.account.id)),
                 getEventComments,
+                getEventTickets,
                 reqBody,
+                ticketBody,
 
                 // delete comment
                 async deleteComment(commentId){
@@ -119,8 +146,24 @@ import { logger } from '../utils/Logger.js';
 
                 async createComment(){
                     try {
-                        await commentsService.createComment(route.params.eventId, reqBody.value)
+                        reqBody.value.eventId = route.params.eventId
+                        reqBody.value.event = this.event
+                        await commentsService.createComment(reqBody.value)
                         reqBody.value = {}
+                    } catch (error) {
+                        Pop.error(error)
+                    }
+                },
+
+                async createTicket(){
+                    try {
+                        ticketBody.value.eventId = route.params.eventId
+                        ticketBody.value.event = this.event
+                        ticketBody.value.accountId = this.account.id
+                        ticketBody.value.profile = this.account
+                        await ticketsService.createTicket(ticketBody.value)
+                        ticketBody.value = {}
+                        getEventById()
                     } catch (error) {
                         Pop.error(error)
                     }
@@ -143,14 +186,24 @@ import { logger } from '../utils/Logger.js';
     right: 2rem;
 }
 
-.deleteBtn{
-    right: 0rem;
-    top: 0rem;
+.attend-btn{
+    bottom: 2rem;
+    right: 8rem;
 }
 
-.attendee-container{
+.deleteBtn{
+    right: 1rem;
+    top: 1rem;
+}
+
+.attendeeContainer{
     height: 10rem;
     overflow: scroll !important;
+    // width: 25rem !important;
+}
+
+.attendeeContainer::-webkit-scrollbar {
+    display: none;
 }
 
 .commentContainer{
@@ -187,6 +240,13 @@ hr{
         overflow: hidden;
     transform:translate(0rem, 0rem);
 }
+
+.attendeeContainer{
+    height: 10rem;
+    overflow: scroll !important;
+    width: 25rem !important;
+}
+
 .coverImg{
     overflow: hidden;
     height: 15rem;

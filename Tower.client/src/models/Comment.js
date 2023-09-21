@@ -7,5 +7,8 @@ export class Comment{
         this.isAttending = data.isAttending
         this.creator = data.creator
         this.event = data.even
+        this.createdAt = new Date(data.createdAt).toLocaleDateString([], {
+            hour: '2-digit', minute: '2-digit'
+        })
     }
 }

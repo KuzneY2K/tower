@@ -1,4 +1,7 @@
 <template>
+  <section class="row p-0 m-0">
+  <CreateEvent v-if="account.id" />
+</section>
   <section class="row p-0 m-0 main-row">
             <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-start">
             <ul class="list-group list position-relative d-flex flex-row flex-wrap justify-content-center align-items-center text-center ms-md-5">
@@ -48,6 +51,7 @@ export default {
     })
     return {
       filter,
+      account: computed(() => AppState.account),
       events: computed(() => {
         if(!filter.value){
           return AppState.events

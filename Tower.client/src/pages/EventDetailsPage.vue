@@ -32,7 +32,7 @@
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import {eventsService} from '../services/EventsService.js'
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, popScopeId } from 'vue';
 import { AppState } from '../AppState.js';
 import { logger } from '../utils/Logger.js';
 import {commentsService} from '../services/CommentsService.js'
@@ -64,7 +64,20 @@ import {commentsService} from '../services/CommentsService.js'
             })
             return {
                 event: computed(() => AppState.activeEvent),
-                comments: computed(() => AppState.eventComments)
+                comments: computed(() => AppState.eventComments),
+
+                // delete comment
+                async deleteComment(commentId){
+                    try {
+                        if(Pop.confirm('Delete comment?')){
+                            await commentsService.deleteComment(commentId)
+                        } else {
+                            Pop.toast('Deletion cancelled.')
+                        }
+                    } catch (error) {
+                        Pop.error(error)
+                    }
+                }
             }
         }
     }

@@ -11,6 +11,10 @@ class CommentsService {
         AppState.eventComments = res.data.map(comment => new Comment(comment))
         logger.log(AppState.eventComments)
     }
+
+    async deleteComment(commentId){
+        logger.log(`Deleting ${commentId}`)
+    }
 }
 
 export const commentsService = new CommentsService()

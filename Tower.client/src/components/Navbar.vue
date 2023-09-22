@@ -12,12 +12,12 @@
     </button>
     <div class="collapse navbar-collapse justify-content-md-end" id="navbarText">
       <ul class="navbar-nav me-md-4 d-flex flex-row justify-content-center">
-        <li class="animate__animated animate__flash">
+        <li class="animate__animated animate__fadeIn">
           <router-link :to="{ name: 'Home' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 me-4 border-white border elevation-5">
               Events
           </router-link>
         </li>
-                <li class="animate__animated animate__flash">
+                <li class="animate__animated animate__fadeIn">
             <router-link :to="{ name: 'Account' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 border-white border elevation-5">
                 Account
             </router-link>

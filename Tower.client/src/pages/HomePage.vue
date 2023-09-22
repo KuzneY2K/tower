@@ -24,7 +24,7 @@
             </div>
   </section>
   <section class="row p-0 m-0 mb-5">
-    <h3 class="p-0 m-0 ms-4 mt-3">Sorted by: Newest Events</h3>
+    <!-- <h3 class="p-0 m-0 ms-4 mt-3">Sorted by: Newest Events</h3> -->
     <EventCard :event="event" v-for="event in events" :key="event" class="animate__animated animate__fadeIn" />
   </section>
 </template>

@@ -1,5 +1,5 @@
 <template>
-        <div class="col-md-6 m-auto col-12 p-0 m-0 d-flex flex-column flex-wrap flex-md-row jusity-content-center px-4 ">
+        <div class="col-md-5 m-auto col-11 p-0 m-0 d-flex flex-column flex-wrap flex-md-row jusity-content-center">
           <div class="card-container event-card p-0 m-0 d-flex flex-column flex-wrap mt-3 flex-md-row jusity-content-center px-2 elevation-5 border border-2 border-dark " @click.stop="e => e.target.classList.toggle('active')" :style="{ backgroundImage: 'url(' + props.event.coverImg + ')'}">
 
             <div class="title-container p-0 m-0 click-thru text-white pattern-dots-lg gray-light pb-4 px-4">

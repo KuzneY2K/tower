@@ -49,7 +49,7 @@
         </div>
         <div class="col-6 p-0 m-0 d-flex flex-column align-items-md-start align-items-center info-col">
             <div class="p-0 m-0 d-flex flex-row justify-content-md-end">
-                <h2 class="p-0 m-0 me-md-5 mt-md-5 my-3 animate__animated animate__fadeInLeftBig">{{event.name}}</h2>
+                <h2 class="p-0 m-0 me-md-5 mt-md-5 my-3 animate__animated animate__fadeInLeftBig eventName">{{event.name}}</h2>
             </div>
             <h3 class="p-0 m-0 me-md-5 mt-0 my-3 animate__animated animate__fadeInRightBig">{{event.location}}</h3>
             <h5 class="p-0 m-0 me-md-5 mt-0 my-3 animate__animated animate__fadeInDownBig">Event created by: {{event.creator.name}}</h5>
@@ -209,6 +209,14 @@ import { Modal } from 'bootstrap';
   z-index: 5;
 }
 
+.eventName{
+    overflow: scroll !important;
+}
+
+.eventName::-webkit-scrollbar {
+    display: none;
+}
+
 .commentpic{
     object-fit: cover;
 }
@@ -277,7 +285,12 @@ hr{
 @media (max-width: 900px){
     .coverImgContainer{
         overflow: hidden;
-    transform:translate(0rem, 0rem);
+    transform:translate(0rem, 0rem) !important;
+    .coverImg{
+        height: 10rem;
+        width: 20rem;
+            transform:translate(0rem, 0rem) !important;
+    }
 }
 
 .attendeeContainer{

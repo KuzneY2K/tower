@@ -1,5 +1,5 @@
 <template>
-    <section class="row p-0 m-0 d-flex flex-column flex-md-row align-items-md-start align-items-center container-fluid position-relative" v-if="event && !event.isCanceled">
+    <section class="row p-0 m-0 d-flex flex-column flex-md-row align-items-md-start align-items-center container-fluid position-relative mt-5" v-if="event && !event.isCanceled">
         <!-- MODAL -->
         <!-- Button trigger modal -->
         <div class="btn-container p-0 m-0 position-absolute">
@@ -133,7 +133,7 @@ import { Modal } from 'bootstrap';
             // if event is cancelled disable ticket creation
             return {
                 event: computed(() => AppState.activeEvent),
-                comments: computed(() => AppState.eventComments),
+                comments: computed(() => AppState.eventComments.reverse()),
                 tickets: computed(() => AppState.eventTickets),
                 account: computed(() => AppState.account),
                 capacity: computed(() => AppState.activeEvent.capacity),

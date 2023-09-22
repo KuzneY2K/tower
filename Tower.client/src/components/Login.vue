@@ -11,7 +11,7 @@
             <img :src="account.picture || user.picture" alt="account photo" height="60" width="60" class="rounded rounded-pill border border-2 elevation-5 p-0 m-0 pfp" />
           </div>
         </div>
-        <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0 " aria-labelledby="authDropdown">
+        <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0 mb-3" aria-labelledby="authDropdown">
           <div class="list-group ">
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
@@ -56,5 +56,9 @@ export default {
 
 .pfp{
   object-fit: cover;
+}
+
+.dropdown-menu{
+  z-index: 5 !important;
 }
 </style>

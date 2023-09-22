@@ -5,14 +5,14 @@
       Login
     </button>
     <div v-else>
-      <div class="dropdown my-2 my-lg-0 p-0 m-0">
-        <div type="button" class="border-0 selectable no-select p-0 m-0" data-bs-toggle="dropdown" aria-expanded="false">
+      <div class="dropdown my-2 my-lg-0 p-0 m-0 animate__animated animate__flash">
+        <div type="button" class="border-0 selectable no-select p-0 m-0 " data-bs-toggle="dropdown" aria-expanded="false">
           <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="50" class="rounded rounded-pill border border-2 elevation-5 p-0 m-0" />
+            <img :src="account.picture || user.picture" alt="account photo" height="60" width="60" class="rounded rounded-pill border border-2 elevation-5 p-0 m-0 pfp" />
           </div>
         </div>
-        <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0" aria-labelledby="authDropdown">
-          <div class="list-group">
+        <div class="dropdown-menu dropdown-menu-lg-end dropdown-menu-start p-0 " aria-labelledby="authDropdown">
+          <div class="list-group ">
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
                 Manage Account
@@ -52,5 +52,9 @@ export default {
 <style lang="scss" scoped>
 .nav-btn {
   width: 8rem;
+}
+
+.pfp{
+  object-fit: cover;
 }
 </style>

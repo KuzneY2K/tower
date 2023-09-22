@@ -10,6 +10,18 @@ export class AccountController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
       .get('/tickets', this.getMyTickets)
+      .put('', this.editAccount)
+  }
+
+  async editAccount(req, res, next) {
+    try {
+      let accountId = req.userInfo.id
+      let edits = req.body
+      let accountToEdit = await accountService.editAccount(accountId, edits)
+      res.send(accountToEdit)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async getUserAccount(req, res, next) {

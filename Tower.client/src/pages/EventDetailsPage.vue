@@ -43,20 +43,20 @@
     </div>
         <!-- MODAL -->
         <div class="col-6 p-0 m-0 d-flex flex-column align-items-md-start align-items-center">
-            <div class="div pattern-diagonal-lines-sm gray-lighter text-black p-0 m-0 coverImgContainer mt-3">
-                <img :src="event.coverImg" alt="event coverimg" class="coverImg ms-md-5 mt-md-5 border border-2 border-black elevation-5 ">
+            <div class="div pattern-diagonal-lines-sm gray-lighter text-black p-0 m-0 coverImgContainer mt-3 animate__animated animate__fadeInLeft">
+                <img :src="event.coverImg" alt="event coverimg" class="coverImg ms-md-5 mt-md-5 border border-2 border-black elevation-5 animate__animated animate__fadeIn">
             </div>
         </div>
         <div class="col-6 p-0 m-0 d-flex flex-column align-items-md-start align-items-center info-col">
             <div class="p-0 m-0 d-flex flex-row justify-content-md-end">
-                <h2 class="p-0 m-0 me-md-5 mt-md-5 my-3">{{event.name}}</h2>
+                <h2 class="p-0 m-0 me-md-5 mt-md-5 my-3 animate__animated animate__fadeInLeftBig">{{event.name}}</h2>
             </div>
-            <h3 class="p-0 m-0 me-md-5 mt-0 my-3">{{event.location}}</h3>
-            <h5 class="p-0 m-0 me-md-5 mt-0 my-3">Event created by: {{event.creator.name}}</h5>
-            <h5 class="mt-md-5 me-md-5 p-0 m-0 w-100 my-3 desc">{{ event.description }}</h5>
+            <h3 class="p-0 m-0 me-md-5 mt-0 my-3 animate__animated animate__fadeInRightBig">{{event.location}}</h3>
+            <h5 class="p-0 m-0 me-md-5 mt-0 my-3 animate__animated animate__fadeInDownBig">Event created by: {{event.creator.name}}</h5>
+            <h5 class="mt-md-5 me-md-5 p-0 m-0 w-100 my-3 desc animate__animated animate__fadeInUpBig">{{ event.description }}</h5>
             <hr>
-            <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3" :key="event.ticketCount">Tickets left: {{capacity - ticketCount}}</h4>
-            <h3 class="mt-md-2 ms-md-5">STARTING at {{ event.startDate }}</h3>
+            <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3 animate__animated animate__fadeInDownBig" :key="event.ticketCount">Tickets left: {{capacity - ticketCount}}</h4>
+            <h3 class="mt-md-2 ms-md-5 animate__animated animate__fadeInUpBig">STARTING at {{ event.startDate }}</h3>
             <div class="col-12 p-0 m-0 d-flex flex-row justify-content-center attendeeContainer mt-md-3">
             <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket" />
         </div>
@@ -68,7 +68,7 @@
         <button class="btn btn-secondary rounded position-absolute deleteBtn" @click.prevent="deleteComment(comment.id)" v-if="comment.creator.id == account.id">X</button>
         <div class="div p-0 m-0 commentContainer border border-2 border-black p-4 w-100 rounded">
             <div class="div comment-head p-0 m-0 d-flex flex-row align-items-center">
-                <img :src="comment.creator.picture" alt="" class="rounded rounded-pill" height="60">
+                <img :src="comment.creator.picture" alt="" class="rounded rounded-pill commentpic" height="60" width="60">
                 <div class="div comment-head-info">
             <h5 class="p-0 m-0 ms-4">{{ comment.creator.name }} says...</h5>
             <span class="p-0 m-0 ms-4 mt-1">{{ comment.createdAt }}</span>
@@ -209,6 +209,10 @@ import { Modal } from 'bootstrap';
   z-index: 5;
 }
 
+.commentpic{
+    object-fit: cover;
+}
+
 .comment-btn{
     bottom: 2rem;
     right: 2rem;
@@ -245,7 +249,7 @@ import { Modal } from 'bootstrap';
 }
 
 .coverImgContainer{
-    transform:translate(3rem, 0rem);
+    transform:translate(3rem, 0rem) !important;
 }
 
 .commentContainer::-webkit-scrollbar {
@@ -254,7 +258,9 @@ import { Modal } from 'bootstrap';
 
 .coverImg{
     height: 25rem;
-        transform:translate(0.5rem, 1rem);
+    width: 40rem;
+    object-fit: cover;
+        transform:translate(0rem, 1rem);
 }
 
 hr{

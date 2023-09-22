@@ -1,6 +1,6 @@
 <template>
     <div class="p-0 m-0 d-flex flex-column justify-content-center align-items-center container" v-if="props.ticket">
-        <img :src="props.ticket.profile.picture" alt="" height="40" class="mt-3 me-5 rounded rounded-pill elevation-5 border border-1 border-dark" :title="props.ticket.profile.name" @click.prevent="deleteTicket(props.ticket.id)">
+        <img :src="props.ticket.profile.picture" alt="" height="60" width="60" class="mt-3 me-5 rounded rounded-pill elevation-5 border border-1 border-dark bubble" :title="props.ticket.profile.name" @click.prevent="deleteTicket(props.ticket.id)">
     </div>
 </template>
 
@@ -51,5 +51,9 @@ import { useRouter } from 'vue-router';
 <style lang="scss" scoped>
     .container{
         width: 2rem;
+    }
+
+    .bubble{
+        object-fit: cover;
     }
 </style>

@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext'
+import { logger } from '../utils/Logger.js'
 
 // Private Methods
 
@@ -10,7 +11,7 @@ import { dbContext } from '../db/DbContext'
 async function createAccountIfNeeded(account, user) {
   if (!account) {
     user._id = user.id
-    if(typeof user.name == 'string' && user.name.includes('@')){
+    if (typeof user.name == 'string' && user.name.includes('@')) {
       user.name = user.nickname
     }
     account = await dbContext.Account.create({
@@ -46,6 +47,13 @@ function sanitizeBody(body) {
 }
 
 class AccountService {
+  async editAccount(accountId, edit) {
+    let accountToEdit = await dbContext.Account.findById(accountId)
+    accountToEdit.picture = edit.picture ? edit.picture : accountToEdit.picture
+    accountToEdit.name = edit.name ? edit.name : accountToEdit.name
+    await accountToEdit.save()
+    return accountToEdit
+  }
   /**
    * Returns a user account from the Auth0 user object
    *

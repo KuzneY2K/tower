@@ -5,19 +5,19 @@
   <section class="row p-0 m-0 main-row">
             <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-start">
             <ul class="list-group list position-relative d-flex flex-row flex-wrap justify-content-center align-items-center text-center ms-md-5">
-              <li class="list-item li-o me-md-4 me-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInDown" @click="filter = 'concert'">
+              <li class="list-item li-o me-md-4 me-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInDown elevation-2" @click="filter = 'concert'">
                 Concerts
               </li>
               <li class="list-item li-t mb-md-5 me-md-4 px-4 py-3 rounded fs-5 animate__animated animate__bounceInUp" @click="filter = 'convention'">
                 Conventions
               </li>
-              <li class="list-item li-th me-md-4 mt-3 me-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInDown" @click="filter = 'sport'">
+              <li class="list-item li-th me-md-4 mt-3 me-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInDown elevation-2" @click="filter = 'sport'">
                 Sports
               </li>
               <li class="list-item li-f mb-md-5 me-md-4 mt-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInUp" @click="filter = 'digital'">
                 Digital
               </li>
-              <li class="list-item li-z me-md-4 mt-md-5 mt-3 me-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInDown" @click="filter = ''">
+              <li class="list-item li-z me-md-4 mt-md-3 mt-3 me-3 px-4 py-3 rounded fs-5 animate__animated animate__bounceInDown elevation-2" @click="filter = ''">
                    All
                  </li>
             </ul>

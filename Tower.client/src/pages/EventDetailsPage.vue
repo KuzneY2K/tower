@@ -58,9 +58,14 @@
             <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3 animate__animated animate__fadeInDownBig" :key="event.ticketCount">Tickets left: {{capacity - ticketCount}}</h4>
             <h3 class="mt-md-2 ms-md-5 animate__animated animate__fadeInUpBig">STARTING at {{ event.startDate }}</h3>
             <div class="col-12 p-0 m-0 d-flex flex-row justify-content-center attendeeContainer mt-md-3">
-            <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket"/>
+                <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket"/>
+                <h2 class="mt-5" v-if="tickets.length == 0">NO ATTENDEES</h2>
         </div>
-            <hr>
+    </div>
+</section>
+<section class="row p-0 m-0">
+    <div class="col-12 p-0 m-0 text-center">
+        <h2>EVENT COMMENTS</h2>
     </div>
 </section>
 <section class="row p-0 m-0 comments mb-5 mt-4" v-for="comment in comments" :key="comment">
@@ -74,7 +79,7 @@
             <span class="p-0 m-0 ms-4 mt-1">{{ comment.createdAt }}</span>
             </div>
             </div>
-        <p class="p-0 m-0 mt-4 fs-5"><i class="mdi mdi-format-quote-open"></i>{{comment.body}}<i class="mdi mdi-format-quote-close"></i></p>
+        <p class="p-0 m-0 mt-4"><i class="mdi mdi-format-quote-open"></i>{{comment.body}}<i class="mdi mdi-format-quote-close"></i></p>
         </div>
     </div>
 </section>

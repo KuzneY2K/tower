@@ -58,7 +58,7 @@
             <h4 class="p-0 m-0 me-md-5 mt-md-2 my-3 animate__animated animate__fadeInDownBig" :key="event.ticketCount">Tickets left: {{capacity - ticketCount}}</h4>
             <h3 class="mt-md-2 ms-md-5 animate__animated animate__fadeInUpBig">STARTING at {{ event.startDate }}</h3>
             <div class="col-12 p-0 m-0 d-flex flex-row justify-content-center attendeeContainer mt-md-3">
-            <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket" />
+            <AttendeeBubble v-for="ticket in tickets" :key="ticket.id" :ticket="ticket"/>
         </div>
             <hr>
     </div>
@@ -133,7 +133,7 @@ import { Modal } from 'bootstrap';
             // if event is cancelled disable ticket creation
             return {
                 event: computed(() => AppState.activeEvent),
-                comments: computed(() => AppState.eventComments.reverse()),
+                comments: computed(() => AppState.eventComments),
                 tickets: computed(() => AppState.eventTickets),
                 account: computed(() => AppState.account),
                 capacity: computed(() => AppState.activeEvent.capacity),

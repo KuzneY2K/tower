@@ -17,18 +17,18 @@
               Events
           </router-link>
         </li>
-                <li class="animate__animated animate__fadeIn">
+        <li class="animate__animated animate__fadeIn">
             <router-link :to="{ name: 'Account' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 border-white border elevation-5">
                 Account
             </router-link>
           </li>
-        <!-- <li>
-          <router-link :to="{ name: 'About' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 border-white border elevation-5">
-            About
-          </router-link>
-        </li> -->
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
+          <!-- <li>
+            <router-link :to="{ name: 'About' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 border-white border elevation-5">
+              About
+            </router-link>
+          </li> -->
+        </ul>
+        <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
   </nav>

@@ -10,10 +10,11 @@
             
             <p class="mx-5 my-5 text-white event-desc mt-3 positon-absolute click-thru " >{{ props.event.description }}</p>
           </div>
+          <!-- NO CANCEL -->
           <router-link :to="{name: 'Event Details', params: {eventId: props.event.id}}" v-if="props.event?.isCanceled == false" class="pattern-dots-lg gray-light text-white">
             <button class="btn btn-light mt-3 ms-3" v-if="props.event.isCanceled == false">See Event Details</button>
           </router-link>
-          <!-- NULL -->
+          <!-- CANCELLED -->
           <div class="div p-0 m-0 text-white">
           <button class="btn btn-light mt-3 ms-3" v-if="props.event.isCanceled == true" disabled>See Event Details</button>
           </div>
@@ -54,8 +55,10 @@ import { Ticket } from '../models/Ticket.js';
   transition: transform ease-in-out .2s;
   
   >.title-container{
-    visibility: visible;
+    // visibility: visible;
+    opacity: 100;
     position: absolute;
+    transition: opacity ease-in-out .2s;
   }
   
   >p{
@@ -71,7 +74,8 @@ import { Ticket } from '../models/Ticket.js';
     overflow: scroll !important;
   
   >.title-container{
-    visibility: hidden;
+    // visibility: hidden;
+    opacity: 0;
     position: absolute;
   }
   >p{

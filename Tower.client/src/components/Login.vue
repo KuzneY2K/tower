@@ -1,6 +1,6 @@
 <template>
-  <span class="navbar-text">
-    <button class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 me-4 border-white border elevation-5 " @click="login"
+  <span class="navbar-text d-flex flex-row justify-content-center">
+    <button class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 me-4 border-white border elevation-5" @click="login"
       v-if="!user.isAuthenticated">
       Login
     </button>

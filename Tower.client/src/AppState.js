@@ -14,5 +14,6 @@ export const AppState = reactive({
   /** @type {import('./models/Ticket.js').Ticket[]} */
   eventTickets: null,
   /** @type {import('./models/Ticket.js').Ticket[]} */
-  myTickets: null
+  myTickets: null,
+  needsTour: localStorage.getItem('needsTour') || null
 })

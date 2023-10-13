@@ -2,7 +2,7 @@
   <header>
     <Navbar />
   </header>
-  <main>
+  <main id="home">
     <router-view />
   </main>
 </template>

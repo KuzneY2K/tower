@@ -1,5 +1,5 @@
 <template>
-        <div class="col-md-5 m-auto col-11 p-0 m-0 d-flex flex-column flex-wrap flex-md-row jusity-content-center">
+        <div class="col-md-5 m-auto col-11 p-0 m-0 d-flex flex-column flex-wrap flex-md-row jusity-content-center" id="eventCard" title="Clicking on me reveals my description!">
           <div class="card-container event-card p-0 m-0 d-flex flex-column flex-wrap mt-3 flex-md-row jusity-content-center px-2 elevation-5 border border-2 border-dark " @click.stop="e => e.target.classList.toggle('active')" :style="{ backgroundImage: 'url(' + props.event.coverImg + ')'}">
 
             <div class="title-container p-0 m-0 click-thru text-white pattern-dots-lg gray-light pb-4 px-4">
@@ -11,8 +11,8 @@
             <p class="mx-5 my-5 text-white event-desc mt-3 positon-absolute click-thru " >{{ props.event.description }}</p>
           </div>
           <!-- NO CANCEL -->
-          <router-link :to="{name: 'Event Details', params: {eventId: props.event.id}}" v-if="props.event?.isCanceled == false" class="pattern-dots-lg gray-light text-white">
-            <button class="btn btn-light mt-3 ms-3" v-if="props.event.isCanceled == false">See Event Details</button>
+          <router-link :to="{name: 'Event Details', params: {eventId: props.event.id}}" v-if="props.event?.isCanceled == false" class="pattern-dots-lg gray-light text-white" id="eventDetailsBtn">
+            <button class="btn btn-light mt-3 ms-3" v-if="props.event.isCanceled == false" title="Clicking on an event card reveals the event's description!">See Event Details</button>
           </router-link>
           <!-- CANCELLED -->
           <div class="div p-0 m-0 text-white">

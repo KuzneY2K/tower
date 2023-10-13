@@ -2,14 +2,14 @@
   <section class="row p-0 m-0">
   <CreateEvent v-if="account.id" />
 </section>
-  <div class="accordion accordion-flush" id="accordionFlushExample">
+  <div class="accordion accordion-flush" id="categoriesAccordion">
     <div class="accordion-item">
       <h2 class="accordion-header" id="flush-headingOne">
         <button class="accordion-button collapsed px-5" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
           Click To See All Event Categories
         </button>
       </h2>
-      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#categoriesAccordion">
 
 
         <section class="row p-0 m-0 main-row mt-3">
@@ -54,6 +54,29 @@ import AOS from 'aos';
 
 export default {
   setup() {
+    const driver = window.driver.js.driver
+
+    const homeTour = driver({
+      showProgress: true,
+      allowClose: true,
+      onCloseClick: () => { 
+        localStorage.setItem('needsTour', false)
+        homeTour.destroy()
+      },
+      steps: [
+      { element: '#categoriesAccordion', popover: { title: 'Welcome to Tower Events! 🎉', description: 'Click this drop down button to view all categories!', side: "bottom", align: "center" } },
+      { element: '#eventCard', popover: { title: 'Event Cards. 🎴', description: 'Clicking event cards flips them over and shows you a short description on the event!', side: "bottom", align: "center" }, onNextClick: () => {
+        localStorage.setItem('needsTour', false)
+        homeTour.moveNext()
+      } },
+      { element: '#eventCard', popover: { title: 'Thats it! 🪩', description: 'This is the end of this tour. Click done when you are ready.', side: "bottom", align: "center" } },
+      ]
+    })
+
+    function giveTour(){
+      homeTour.drive()
+    }
+
     async function getEvents(){
       try {
         await eventsService.getEvents()
@@ -65,6 +88,8 @@ export default {
     const filter = ref('')
 
     onMounted(()=> {
+      // setTimeout(giveTour, 1500)
+      // Pop.toast('Clicking on event cards reveals their description!')
       getEvents()
       AOS.init()
     })

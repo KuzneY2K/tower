@@ -13,6 +13,7 @@
 
 
         <section class="row p-0 m-0 main-row mt-3">
+          <!-- <spline :scene=YOUR_SCENE_OBJECT_HERE /> -->
           <div>
                   <div class="col-12 p-0 m-0 d-flex flex-row align-items-center justify-content-start">
                   <ul class="list-group list position-relative d-flex flex-row flex-wrap justify-content-center align-items-center text-center ms-md-5">

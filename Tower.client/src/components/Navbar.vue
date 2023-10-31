@@ -17,7 +17,7 @@
               Events
           </router-link>
         </li>
-        <li class="animate__animated animate__fadeIn">
+        <li class="animate__animated animate__fadeIn" v-if="account.id">
             <router-link :to="{ name: 'Account' }" class="btn btn-grad nav-btn text-white selectable text-uppercase p-0 m-0 px-4 py-2 border-white border elevation-5">
                 Account
             </router-link>
@@ -35,10 +35,14 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import Login from './Login.vue';
+import { AppState } from '../AppState.js';
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.user)
+    }
   },
   components: { Login }
 }
@@ -59,6 +63,10 @@ a:hover {
 
 .navbar-toggler{
   border: 1px solid black;
+}
+
+.navbar-collapse{
+  z-index: 10;
 }
 
 .navbar-toggler-icon {
